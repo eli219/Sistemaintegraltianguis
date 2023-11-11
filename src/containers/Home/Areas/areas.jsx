@@ -1,5 +1,5 @@
 import React from 'react';
-import Title from '../../../componets/Title';
+import Title from '../../../components/Title';
 import { StyledHome,StyledTitle } from './styles';
 import Menuprin from '../Menu/Menuprinc';
 

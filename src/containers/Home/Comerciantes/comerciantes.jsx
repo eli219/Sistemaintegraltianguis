@@ -1,8 +1,8 @@
 
 import React, { useState, useRef } from 'react';
-import Title from '../../../componets/Title';
+import Title from '../../../components/Title';
 import { StyledHome, StyledTitle, Styledtarifa, StyledModal, StyledTableWrapper } from './styles';
-import Button from '../../../componets/Button';
+import Button from '../../../components/Button';
 import Menu from '../Menu/Menu';
 import jsPDF from 'jspdf';
 import QRCode from 'qrcode.react';
@@ -88,13 +88,6 @@ const Comerciantes = () => {
     cerrarModal();
   };
 
-  const realizarPagoFicticio = (comerciante) => {
-    const newComerciantes = comerciantes.map((c) =>
-      c.nombre === comerciante.nombre ? { ...c, pagoRealizado: true, fechaPago: new Date().toLocaleDateString() } : c
-    );
-    setComerciantes(newComerciantes);
-  };
-
   const generarPDF = () => {
     comerciantes.forEach((comerciante, index) => {
       const yPos = index * 90 + 10;
@@ -173,8 +166,8 @@ const Comerciantes = () => {
         <Title text="Comerciante" />
       </StyledTitle>
       <Styledtarifa>
-        <Button onClick={abrirModal}>Agregar Comerciante</Button>
-        <Button className='espacio' onClick={generarPDF}>Generar PDF</Button>
+        <Button onClick={abrirModal}>Registrar Comerciante</Button>
+        <Button className='espacio' onClick={generarPDF}>Generar Tarjeta QR</Button>
         <StyledTableWrapper>
           <table ref={tableRef}>
             <thead>
@@ -189,7 +182,6 @@ const Comerciantes = () => {
                 <th>Teléfono</th>
                 <th>Pago</th>
                 <th>Código QR</th>
-                <th>Acciones</th>
               </tr>
             </thead>
             <tbody id="comerciantesTable">
@@ -206,13 +198,6 @@ const Comerciantes = () => {
                   <td>{tarifa.pago}</td>
                   <td>
                     <QRCode value={JSON.stringify(tarifa)} />
-                  </td>
-                  <td>
-                    {tarifa.pagoRealizado ? (
-                      <img src="icono-palomita.png" alt="Pago realizado" />
-                    ) : (
-                      <Button onClick={() => realizarPagoFicticio(tarifa)}>Realizar Pago Ficticio</Button>
-                    )}
                   </td>
                 </tr>
               ))}

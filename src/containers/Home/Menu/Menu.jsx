@@ -1,16 +1,14 @@
 
 import React from 'react';
 import { StyledMenu, StyledUl, StyledLi } from './styles'; 
-import MenuItem from '../../../componets/MenuItem'; 
+import MenuItem from '../../../components/MenuItem'; 
 import {
   faHome,
-  faFile,
-  faGraduationCap,
-  faLayerGroup,
-  faSitemap, 
+  faHandHoldingDollar,
   faShapes,
   faCogs,
-  faNewspaper,
+  faAddressCard,
+  faCoins,
 } from '@fortawesome/free-solid-svg-icons';
 import logo from '../../../Images/logo.png'; 
 
@@ -21,19 +19,19 @@ const menuDefault = [
     icon: faHome,
   },
   {
-    displayName: 'Empresa',
-    path: '/empresa',
-    icon: faSitemap,
+    displayName: 'Tarifas de tianguis',
+    path: '/tarifas',
+    icon: faCoins,
   },
   {
-    displayName: 'Comerciantes',
+    displayName: 'Registro Comerciantes',
     path: '/comerciantes',
-    icon: faLayerGroup,
+    icon: faAddressCard,
   },
   {
-    displayName: 'Documentacion',
-    path: '/documentos',
-    icon: faFile,
+    displayName: 'Pagos Comerciantes',
+    path: '/pagos',
+    icon: faHandHoldingDollar,
   },
   {
     displayName: 'Aplicacion movil',

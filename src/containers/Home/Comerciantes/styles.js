@@ -9,39 +9,8 @@ const StyledHome = styled.div`
   box-sizing: border-box;
   flex-direction: column;
   background:white;
-  body {
-    box-sizing: border-box;
-    color: #220f5f;
-    font-family: 'Arial', sans-serif;
-  }
+  font-family: 'Arial', sans-serif;
   
-  /* styles.css */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 20px;
-  font-family: Arial, sans-serif;
-}
-
-table th,
-table td {
-  padding: 12px 15px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-}
-
-table th {
-  background-color: #f2f2f2;
-  font-weight: bold;
-}
-
-table tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-table tr:hover {
-  background-color: #ddd;
-}
 
 `;
 const StyledTitle = styled.div`
@@ -51,60 +20,35 @@ const StyledTitle = styled.div`
   }
 `;
 const StyledTableWrapper = styled.div`
-overflow-x: auto;
-max-width: 100%;
-margin-top: 20px;
-.StyledTableWrapper {
-  margin-top: 20px;
   overflow-x: auto;
-}
+  font-family: 'Arial', sans-serif;
+  font-size: 18px;
+  max-width: 100%;
+  margin: 20px auto; /* Alinea el contenedor de la tabla en el centro */
+  
+  table {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto; /* Alinea la tabla en el centro */
+    border-collapse: collapse;
+    background-color: #fff;
+    color: #000;
+  }
 
-table {
-  border-collapse: collapse;
-  width: 100%;
-  background-color: #fff;
-  color: #000;
-}
+  table, th, td {
+    border: 1px solid #ccc;
+  }
 
-table, th, td {
-  border: 1px solid #ccc;
-}
+  th, td {
+    padding: 8px;
+    text-align: left;
+  }
 
-th, td {
-  padding: 8px;
-  text-align: left;
-}
-
-th {
-  background-color: #eee;
-}
-
-// table {
-//   width: 100%;
-//   border-collapse: collapse;
-//   border-spacing: 0;
-//   background-color: #ffffff;
-//   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-// }
-
-// th, td {
-//   padding: 12px 15px;
-//   text-align: left;
-// }
-
-// th {
-//   background-color: #f2f2f2;
-//   font-weight: bold;
-// }
-
-// tr:nth-child(even) {
-//   background-color: #f2f2f2;
-// }
-
-// tr:hover {
-//   background-color: #ddd;
-// }
+  th {
+    background-color: #eee;
+  }
 `;
+
 const StyledModal = styled.div`
 position: fixed;
 width:800px;

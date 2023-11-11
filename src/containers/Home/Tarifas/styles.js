@@ -24,6 +24,8 @@ const Styledtarifa = styled.div`
 `;
 const StyledTableWrapper = styled.div`
 overflow-x: auto;
+font-family: 'Arial', sans-serif;
+font-size:18px;
 max-width: 100%;
 margin-top: 20px;
 

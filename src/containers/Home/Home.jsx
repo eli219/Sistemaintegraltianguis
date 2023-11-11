@@ -1,9 +1,9 @@
 
 import React,{useEffect,useState} from 'react';
-import Title from '../../componets/Title';
+import Title from '../../components/Title';
 import { StyledHome, StyledTitle } from './styles';
 import Menu from './Menu/Menu';
-import Chatbot from '../../componets/Chatbot';
+import Chatbot from '../../components/Chatbot';
 
 const Home = () => {
   const [chatOpen, setChatOpen] = useState(false);

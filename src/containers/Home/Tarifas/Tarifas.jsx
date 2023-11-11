@@ -1,9 +1,9 @@
 
 import React, { useState, useEffect } from 'react';
-import Title from '../../../componets/Title';
+import Title from '../../../components/Title';
 import { StyledHome, StyledTitle, Styledtarifa, StyledModal, StyledTableWrapper } from './styles';
 import Menu from '../Menu/Menu';
-import Button from '../../../componets/Button';
+import Button from '../../../components/Button';
 
 const Empresa = () => {
   const [tarifas, setTarifas] = useState([]);
@@ -47,7 +47,7 @@ const Empresa = () => {
     <StyledHome>
       <Menu />
       <StyledTitle>
-        <Title text="Empresa" />
+        <Title text="Tarifas de tianguis" />
       </StyledTitle>
       <Styledtarifa>
         <Button onClick={abrirModal}>Agregar Tarifa</Button>
@@ -57,6 +57,7 @@ const Empresa = () => {
               <tr>
                 <th>Nombre del tianguis</th>
                 <th>Costo de Metros</th>
+                <th>Tarifa Basura</th>
               </tr>
             </thead>
             <tbody>
@@ -64,6 +65,7 @@ const Empresa = () => {
                 <tr key={index}>
                   <td>{tarifa.nombre}</td>
                   <td>{tarifa.precio}</td>
+                  <td>{tarifa.basura}</td>
                 </tr>
               ))}
             </tbody>
@@ -81,11 +83,20 @@ const Empresa = () => {
               />
             </div>
             <div>
-              <label>Costo de metros:</label>
+              <label>Costo de Metros:</label>
               <input
                 type="number"
                 name="precio"
                 value={nuevaTarifa.precio || ''}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div>
+              <label>Costo de Basura:</label>
+              <input
+                type="number"
+                name="basura"
+                value={nuevaTarifa.basura || ''}
                 onChange={handleInputChange}
               />
             </div>

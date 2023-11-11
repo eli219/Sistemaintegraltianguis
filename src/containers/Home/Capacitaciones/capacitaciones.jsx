@@ -1,11 +1,11 @@
 import React from 'react';
-import Title from '../../../componets/Title';
+import Title from '../../../components/Title';
 import { StyledHome,StyledTitle } from './styles';
-import Menuprin from '../Menu/Menuprinc';
+import Menu from '../Menu/Menu';
 
 const Capacitaciones = () => (
   <StyledHome>
-    <Menuprin/>
+    <Menu/>
       <StyledTitle>
         <Title text="Capacitaciones" />
       </StyledTitle>

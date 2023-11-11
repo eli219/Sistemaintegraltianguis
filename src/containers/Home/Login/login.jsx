@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import Axios from "axios";
 import { StyledHome, StyledLogin, StyledTitle, StyledInput, StyledButton } from './styles';
-import Button from '../../../componets/Button';
+import Button from '../../../components/Button';
 import logo from '../../../Images/logo.png'
-import TitleLogin from "../../../componets/TitleLogin";
-import Input from '../../../componets/Input';
+import TitleLogin from "../../../components/TitleLogin";
+import Input from '../../../components/Input';
 import { useNavigate } from "react-router-dom";
 
 function App() {
