@@ -74,11 +74,13 @@ const Chatbot = () => {
       return "Hola soy un asistente virtual que te enseñare todas las secciones de este sistema 😊"
       case 'inicio':
         return "En la sección de 'Inicio' podrás observar un chatbot que te explicará cómo funciona todo el proyecto.";
-      case 'empresa':
+      case 'Tarifas de tianguis':
         return "En la sección de 'Empresa' encontrarás todas las tarifas, donde podrás editarlas y vincularlas con la tabla de comerciantes.";
-      case 'comerciantes':
-        return "En la sección de 'Comerciantes' encontrarás el listado de la creación de tarjeta prepago y la lista de asistencia.";
-      default:
+      case ' Registro de comerciantes':
+        return "En la sección de 'Registro de comerciantes' encontrarás el listado de la creación de tarjeta prepago y la lista de asistencia.";
+        case ' Pagos de comerciantes':
+          return "En la sección de 'Pagos de Comerciantes' encontrarás el historial de los pagos de los comerciantes reflejados en una tabla";
+        default:
         return "Lo siento, no tengo información sobre '" + keyword + "'.";
     }
   };
