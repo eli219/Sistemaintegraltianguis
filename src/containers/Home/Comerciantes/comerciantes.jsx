@@ -1,5 +1,5 @@
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Title from '../../../components/Title';
 import { StyledHome, StyledTitle, Styledtarifa, StyledModal, StyledTableWrapper } from './styles';
 import Button from '../../../components/Button';
@@ -8,6 +8,7 @@ import jsPDF from 'jspdf';
 import QRCode from 'qrcode.react';
 import styled from 'styled-components';
 import QRious from 'qrious';
+import Axios from "axios";
 
 
 const PrepaidCard = styled.div`
@@ -50,6 +51,7 @@ const CardContent = styled.div`
 
 const Comerciantes = () => {
   const [comerciantes, setComerciantes] = useState([]);
+  const [tablaComerciantes, settablaComerciantes] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [nuevaComerciante, setNuevoComerciante] = useState({});
   const [codigoQR, setCodigoQR] = useState('');
@@ -83,8 +85,18 @@ const Comerciantes = () => {
       pagoRealizado: false,
       fechaPago: '',
     };
+    Axios.post('http://localhost:3001/registrarComerciante', {
+      nuevoComerciante: nuevoComercianteConPago,
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
     setComerciantes((prevComerciante) => [...prevComerciante, nuevoComercianteConPago]);
     setCodigoQR(JSON.stringify(nuevoComercianteConPago));
+    listarComerciantes();
     cerrarModal();
   };
 
@@ -159,6 +171,21 @@ const Comerciantes = () => {
     return Math.floor(Math.random() * 1000000);
   };
 
+  const listarComerciantes = () => {
+    Axios.get('http://localhost:3001/registrarComerciante')
+    .then(function (response) {
+      console.log(response.data);
+      settablaComerciantes(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
+  useEffect(() => {
+    listarComerciantes();
+  }, []);
+
   return (
     <StyledHome>
       <Menu />
@@ -178,27 +205,27 @@ const Comerciantes = () => {
                 <th>Giro</th>
                 <th>Piso</th>
                 <th>Basura</th>
-                <th>Asistencia</th>
+                {/* <th>Asistencia</th>
                 <th>Teléfono</th>
                 <th>Pago</th>
-                <th>Código QR</th>
+                <th>Código QR</th> */}
               </tr>
             </thead>
             <tbody id="comerciantesTable">
-              {comerciantes.map((tarifa, index) => (
+              {tablaComerciantes.map((comerciante, index) => (
                 <tr key={index}>
-                  <td>{tarifa.nombre}</td>
-                  <td>{tarifa.tianguis}</td>
-                  <td>{tarifa.metros}</td>
-                  <td>{tarifa.giro}</td>
-                  <td>{tarifa.piso}</td>
-                  <td>{tarifa.basura}</td>
-                  <td>{tarifa.asistencia}</td>
-                  <td>{tarifa.telefono}</td>
-                  <td>{tarifa.pago}</td>
+                  <td>{comerciante.nombre}</td>
+                  <td>{comerciante.tianguis}</td>
+                  <td>{comerciante.metros}</td>
+                  <td>{comerciante.giro}</td>
+                  <td>{comerciante.piso}</td>
+                  <td>{comerciante.basura}</td>
+                  {/* <td>{comerciante.asistencia}</td>
+                  <td>{comerciante.telefono}</td>
+                  <td>{comerciante.pago}</td>
                   <td>
                     <QRCode value={JSON.stringify(tarifa)} />
-                  </td>
+                  </td> */}
                 </tr>
               ))}
             </tbody>

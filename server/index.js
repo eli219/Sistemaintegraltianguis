@@ -51,6 +51,60 @@ app.post('/login', (req, res) => {
     );
 });
 
+app.post('/registrarComerciante', (req, res) => {
+    let folio;
+    //Verificamos ultimo registro para obtener el folio
+    db.execute(
+        "SELECT folio FROM comerciantes ORDER BY folio DESC LIMIT 1",
+        (err, result) => {
+            if(err){
+                res.status(500).json({ message: "No se pudo conectar a la base de datos"})
+            }
+            else{
+                if(result.length == 0){
+                    folio = 1;
+                }
+                else{
+                    folio = result[0].folio + 1;
+                }
+                const { nombre, tianguis, metros, giro, piso, basura } = req.body.nuevoComerciante;
+                let fecha = '2023-11-15';
+            
+                db.execute(
+                    `INSERT INTO comerciantes (folio, fecha, nombre, tianguis, metros, giro, piso, basura ) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+                    [folio, fecha, nombre, tianguis, metros, giro, piso, basura],
+                    (err, result) => {
+                        if (err) {
+                            res.status(500).json({ error: "Error de servidor al intentar registar el comerciante" });
+                        } else {
+                            if (result.affectedRows == 1) {
+                                res.send(result);
+                            } else {
+                                res.send(result).json({ message: "Error al registar el comerciante" });
+                            }
+                        }
+                    }
+                );
+            }
+        }
+    );
+});
+
+app.get('/registrarComerciante', (req, res) => {
+    db.execute(
+        "SELECT * FROM comerciantes",
+        (err, result) => {
+            if(err){
+                res.status(500).send(err);
+            }
+            else{
+                return res.status(200).send(result);
+            }
+        }
+    );
+});
+
 app.listen(3001, () => {
     console.log("Servidor en funcionamiento en el puerto 3001");
 });
