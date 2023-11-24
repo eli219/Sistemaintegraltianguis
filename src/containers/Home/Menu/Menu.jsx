@@ -35,7 +35,7 @@ const menuDefault = [
   },
   {
     displayName: 'Aplicacion movil',
-    path: '/apps',
+    path: '/movil',
     icon: faShapes,
   },
   {
