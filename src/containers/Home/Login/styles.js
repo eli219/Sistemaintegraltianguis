@@ -66,7 +66,8 @@ const StyledInput = styled.div`
 
 const StyledButton = styled.div`
   margin-left: 100px;
-  margin-top: 60px;
+  margin-top:20px;
+  
 
   @media (max-width: ${breakpoints.medium}) {
     margin-left: 0;
