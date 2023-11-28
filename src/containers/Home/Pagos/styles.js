@@ -64,8 +64,8 @@ const StyledModal = styled.div`
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
   z-index: 9999;
   overflow: hidden;
-  width:300px;
-  height: 300px;
+  width:400px;
+  height: 430px;
 
   .modal-header {
     background-color:#ddd;
@@ -121,6 +121,11 @@ const StyledModal = styled.div`
     background-color: #e0e0e0;
     font-weight: bold;
   }
+`;
+
+const ImgCodigoQR = styled.img`
+width: 400px;
+height: 400px;
 `;
 
 const StyledModalPago = styled.div`
@@ -191,4 +196,4 @@ const SpinnerWrapper = styled.div`
   animation: ${rotate} 1s linear infinite;
 `;
 
-export { StyledHome, StyledTitle, StyledModal, StyledModalPago, Styledtarifa, StyledTableWrapper, StyledTableContent, StyledOverlay, SpinnerWrapper };
+export { StyledHome, StyledTitle, StyledModal, ImgCodigoQR, StyledModalPago, Styledtarifa, StyledTableWrapper, StyledTableContent, StyledOverlay, SpinnerWrapper };

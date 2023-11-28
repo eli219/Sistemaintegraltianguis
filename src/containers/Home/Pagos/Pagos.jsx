@@ -4,7 +4,7 @@ import Title from '../../../components/Title';
 import Button from '../../../components/Button';
 import Menu from '../Menu/Menu';
 import { StyledHome, StyledTitle, StyledModal, StyledModalPago, 
-  StyledTableWrapper, Styledtarifa, SpinnerWrapper, divSpinner } from './styles';
+  StyledTableWrapper, Styledtarifa, SpinnerWrapper, ImgCodigoQR } from './styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose, faClosedCaptioning, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import Axios from "axios";
@@ -14,6 +14,7 @@ const Pagos = () => {
 
   const [historialVisible, setHistorialVisible] = useState(false);
   const [historialPagos, setHistorialPagos] = useState('');
+  const [qrPago, setqrPago] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedComercianteIndex, setSelectedComercianteIndex] = useState(null);
   const [nuevoComerciante, setNuevoComerciante] = useState({});
@@ -26,7 +27,6 @@ const Pagos = () => {
   const listarPagosComerciantes = () => {
     Axios.get('http://localhost:3001/listarPagosComerciante')
     .then(function (response) {
-      console.log(response.data);
       setComerciantes(response.data);
     })
     .catch(function (error) {
@@ -42,17 +42,36 @@ const Pagos = () => {
     setModalVisible(true);
   };
 
-  const abrirHistorial = (codigoqr) => {
+  const mostrarCodigoQR = (codigoqr) => {
     if (codigoqr !== undefined && codigoqr !== null && codigoqr !== '') {
       setHistorialPagos(codigoqr);
       setHistorialVisible(true);
-      // setSelectedComercianteIndex(index);
+      Axios.post('http://localhost:3001/mostrarImagen', {
+        codigoqr: codigoqr,
+      },
+      {
+        responseType: "arraybuffer"
+      }
+      )
+      .then(function (response) {
+        const base64 = btoa(
+          new Uint8Array(response.data).reduce(
+            (data, byte) => data + String.fromCharCode(byte),
+            ''
+          )
+        )
+        const url = `data:image/png;base64,${base64}`;
+        setqrPago(url);
+      })
+      .catch(function (error) {
+        alert(`Ocurrio un erro al mostrar la imagen: ${error}`)
+      });
     } else {
       console.error('Índice de comerciante inválido');
     }
   };
 
-  const cerrarHistorial = () => {
+  const cerrarImgQR = () => {
     setSelectedComercianteIndex(null);
     setHistorialPagos('');
     setHistorialVisible(false);
@@ -83,7 +102,6 @@ const Pagos = () => {
     const formData = new FormData();
     formData.append('file', imagen);
     formData.append('folioComerciante', JSON.stringify(folioComerciante));
-    console.log(folioComerciante);
     Axios.post('http://localhost:3001/subirimagen', 
     formData, 
       {
@@ -149,7 +167,7 @@ const Pagos = () => {
                 <td>{comerciante.tianguis}</td>
                 <td>{comerciante.fecha}</td>
                 <td>
-                  <Button onClick={() => abrirHistorial(comerciante.codigoqr)}>Ver codigo QR</Button>
+                  <Button onClick={() => mostrarCodigoQR(comerciante.codigoqr)}>Ver codigo QR</Button>
                 </td>
               </tr>
             ))}
@@ -159,18 +177,8 @@ const Pagos = () => {
       {historialVisible && (
         <StyledModal className="modal">
           <div className="subtitle">Codigo QR</div>
-          <FontAwesomeIcon icon={faWindowClose} className='close' onClick={cerrarHistorial}></FontAwesomeIcon>
-          <label>{historialPagos}</label>
-          {/* <table>
-            {historialPagos.map((pago, index) => (
-              <tr key={index}>
-                <td>Comerciante: {comerciantes[selectedComercianteIndex].nombre}</td>
-                <td>Tianguis: {pago.tianguis}</td>
-                <td>Monto: {pago.monto}</td>
-                <td>Fecha: {pago.fecha}</td>
-              </tr>
-            ))}
-          </table> */}
+          <FontAwesomeIcon icon={faWindowClose} className='close' onClick={cerrarImgQR}></FontAwesomeIcon>
+          <ImgCodigoQR src={qrPago} alt='Codigo QR para hacer el pago' ></ImgCodigoQR>
         </StyledModal>
       )}
 
@@ -210,52 +218,6 @@ const Pagos = () => {
                 />
               </div>
             )}
-            {/* <div>
-              <label>Metros:</label>
-              <input
-                type="text"
-                name="metros"
-                value={nuevoComerciante.metros || ''}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div>
-              <label>Giro:</label>
-              <input
-                type="text"
-                name="giro"
-                value={nuevoComerciante.giro || ''}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div>
-              <label>Piso:</label>
-              <input
-                type="text"
-                name="piso"
-                value={nuevoComerciante.piso || ''}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div>
-              <label>Basura:</label>
-              <input
-                type="text"
-                name="basura"
-                value={nuevoComerciante.basura || ''}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div>
-              <label>Telefono:</label>
-              <input
-                type="text"
-                name="telefono"
-                value={nuevoComerciante.telefono || ''}
-                onChange={handleInputChange}
-              />
-            </div>
-            <Button onClick={agregarComerciante}>Agregar</Button>  */}
             { showSpinner && 
               ( 
                 <SpinnerWrapper />
