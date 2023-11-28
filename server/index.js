@@ -179,6 +179,18 @@ app.get('/listarPagosComerciante', (req, res) => {
     );
 });
 
+app.post('/mostrarImagen', (req, res) => {
+    const codigoqr = req.body.codigoqr;
+
+    if(codigoqr != undefined){
+        const rutaArchivo = path.join(__dirname, 'public/files', codigoqr);
+        res.sendFile(rutaArchivo);
+    }
+    else{
+        res.status(500).send('Error el enviar el codigo')
+    }
+});
+
 
 app.listen(3001, () => {
     console.log("Servidor en funcionamiento en el puerto 3001");
