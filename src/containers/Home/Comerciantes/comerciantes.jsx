@@ -205,10 +205,6 @@ const Comerciantes = () => {
                 <th>Giro</th>
                 <th>Piso</th>
                 <th>Basura</th>
-                {/* <th>Asistencia</th>
-                <th>Teléfono</th>
-                <th>Pago</th>
-                <th>Código QR</th> */}
               </tr>
             </thead>
             <tbody id="comerciantesTable">
@@ -220,12 +216,6 @@ const Comerciantes = () => {
                   <td>{comerciante.giro}</td>
                   <td>{comerciante.piso}</td>
                   <td>{comerciante.basura}</td>
-                  {/* <td>{comerciante.asistencia}</td>
-                  <td>{comerciante.telefono}</td>
-                  <td>{comerciante.pago}</td>
-                  <td>
-                    <QRCode value={JSON.stringify(tarifa)} />
-                  </td> */}
                 </tr>
               ))}
             </tbody>

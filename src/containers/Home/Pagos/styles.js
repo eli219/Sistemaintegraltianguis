@@ -1,5 +1,5 @@
 // styles.js
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 const StyledHome = styled.div`
   display: flex;
@@ -16,6 +16,13 @@ const StyledTitle = styled.div`
   margin-left: 320px;
   font-size: 20px;
 `;
+const Styledtarifa = styled.div`
+  margin-left:450px;
+  height:900px;
+  .modal {
+    background-color:white;
+  }
+`
 
 const StyledTableWrapper = styled.div`
   overflow-x: auto;
@@ -57,7 +64,8 @@ const StyledModal = styled.div`
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
   z-index: 9999;
   overflow: hidden;
-  width:900px;
+  width:300px;
+  height: 300px;
 
   .modal-header {
     background-color:#ddd;
@@ -114,6 +122,42 @@ const StyledModal = styled.div`
     font-weight: bold;
   }
 `;
+
+const StyledModalPago = styled.div`
+position: fixed;
+width:800px;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+background-color: #ffffff;
+padding: 20px;
+box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+z-index: 1000;
+
+label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  margin-right: 8px;
+}
+subtitle {
+  color:linear-gradient(63.29deg, #EBC0E1 0.45%, #272244 100%);
+}
+`;
+
+const Spinner = styled.div`
+
+`;
 const StyledTableContent = styled.div`
   max-height: 300px;
   overflow-y: auto;
@@ -129,4 +173,22 @@ const StyledOverlay = styled.div`
   z-index: 9998;
 `;
 
-export { StyledHome, StyledTitle, StyledModal, StyledTableWrapper, StyledTableContent, StyledOverlay };
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
+const SpinnerWrapper = styled.div`
+  width: 40px;
+  height: 40px;
+  border: 6px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  animation: ${rotate} 1s linear infinite;
+`;
+
+export { StyledHome, StyledTitle, StyledModal, StyledModalPago, Styledtarifa, StyledTableWrapper, StyledTableContent, StyledOverlay, SpinnerWrapper };

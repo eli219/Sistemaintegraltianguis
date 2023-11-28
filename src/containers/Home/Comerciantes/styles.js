@@ -86,7 +86,6 @@ const Styledtarifa = styled.div`
   .modal {
     background-color:white;
   }
-  }
 `;
 const StyledCard = styled.div`
   display: flex;

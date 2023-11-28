@@ -1,1 +1,5 @@
 node_modules
+
+./server/*
+./server/public
+server/package.json
