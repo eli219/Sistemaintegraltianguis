@@ -4,26 +4,18 @@ import { StyledContainer, StyledHome, StyledTitle } from './styles';
 import Menu from '../Menu/Menu';
 import Button from '../../../components/Button';
 import lector from '../../../Images/lector.png';
+import SistemaIntegralMovilAPK from '../../../APK/SistemaIntegralmovil.apk'; // Ruta al archivo APK
 
 const Movil = () => {
   const handleDownload = () => {
-    // Aquí deberías proporcionar la URL de descarga del archivo APK
-    const apkDownloadUrl = 'URL_DEL_ARCHIVO_APK';
+    const apkDownloadUrl = SistemaIntegralMovilAPK;
 
-    // Crea un enlace temporal
     const downloadLink = document.createElement('a');
     downloadLink.href = apkDownloadUrl;
+    downloadLink.download = 'SistemaIntegralmovil.apk';
 
-    // Asigna el nombre del archivo que se descargará
-    downloadLink.download = 'nombre_del_archivo.apk';
-
-    // Agrega el enlace al documento
     document.body.appendChild(downloadLink);
-
-    // Simula un clic en el enlace para iniciar la descarga
     downloadLink.click();
-
-    // Elimina el enlace del documento
     document.body.removeChild(downloadLink);
   };
 
