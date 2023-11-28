@@ -13,7 +13,7 @@ const multer = require('multer');
 const db = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "gato",
+    password: "12345",
     database: "tianguis"
 });
 
