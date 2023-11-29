@@ -11,17 +11,6 @@ const Empresa = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [nuevaTarifa, setNuevaTarifa] = useState({});
 
-  // useEffect(() => {
-  //   const storedTarifas = JSON.parse(localStorage.getItem('tarifas'));
-  //   if (storedTarifas) {
-  //     setTarifas(storedTarifas);
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   localStorage.setItem('tarifas', JSON.stringify(tarifas));
-  // }, [tarifas]);
-
   const abrirModal = () => {
     setModalVisible(true);
   };
@@ -40,7 +29,6 @@ const Empresa = () => {
   };
 
   const agregarTarifa = () => {
-    //setTarifas((prevTarifas) => [...prevTarifas, nuevaTarifa]);
     Axios.post('http://localhost:3001/registrarTarifa', {
       nuevaTarifa: nuevaTarifa,
     })

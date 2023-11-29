@@ -194,7 +194,7 @@ const Comerciantes = () => {
       </StyledTitle>
       <Styledtarifa>
         <Button onClick={abrirModal}>Registrar Comerciante</Button>
-        <Button className='espacio' onClick={generarPDF}>Generar Tarjeta QR</Button>
+        {/* <Button className='espacio' onClick={generarPDF}>Generar Tarjeta QR</Button> */}
         <StyledTableWrapper>
           <table ref={tableRef}>
             <thead>

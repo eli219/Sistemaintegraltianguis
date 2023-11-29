@@ -72,15 +72,19 @@ const Chatbot = () => {
     switch (keyword) {
       case'hola':
       return "Hola soy un asistente virtual que te enseñare todas las secciones de este sistema 😊"
-      case 'inicio':
+      case 'Inicio':
         return "En la sección de 'Inicio' podrás observar un chatbot que te explicará cómo funciona todo el proyecto.";
       case 'Tarifas de tianguis':
         return "En la sección de 'Empresa' encontrarás todas las tarifas, donde podrás editarlas y vincularlas con la tabla de comerciantes.";
       case ' Registro de comerciantes':
-        return "En la sección de 'Registro de comerciantes' encontrarás el listado de la creación de tarjeta prepago y la lista de asistencia.";
+        return "En la sección de 'Registro de comerciantes' encontrarás el listado de y los datos de los  comerciantes.";
         case ' Pagos de comerciantes':
-          return "En la sección de 'Pagos de Comerciantes' encontrarás el historial de los pagos de los comerciantes reflejados en una tabla";
-        default:
+        return "En la sección de 'Pagos de Comerciantes' encontrarás el historial de los pagos de los comerciantes reflejados en una tabla y generador de tarjetas QR ";
+        case ' Aplicación Móvil':
+          return "En la sección de 'Aplicación Móvil'al dar clic en el boton podras descargar la app móvil";
+          case ' Configuracion':
+          return "En la sección de 'Configuracion'encontrarás el correo de soporte";
+            default:
         return "Lo siento, no tengo información sobre '" + keyword + "'.";
     }
   };
@@ -88,7 +92,7 @@ const Chatbot = () => {
   return (
     <div style={containerStyle}>
       <h1>Bienvenido al Sistema Integral de tianguis</h1>
-      <p>Este es un chatbot para ayudarte a conocer mejor el sistema integrado de tianguis.</p>
+      <p>Este es un chatbot para ayudarte a conocer mejor el sistema integral de tianguis.</p>
       <div style={chatBoxStyle}>
         {chatContent.map((message, index) => (
           <div key={index} className={`message ${message.sender}`} style={messageStyle}>

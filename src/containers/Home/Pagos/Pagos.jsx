@@ -6,7 +6,7 @@ import Menu from '../Menu/Menu';
 import { StyledHome, StyledTitle, StyledModal, StyledModalPago, 
   StyledTableWrapper, Styledtarifa, SpinnerWrapper, ImgCodigoQR } from './styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClose, faClosedCaptioning, faWindowClose } from '@fortawesome/free-solid-svg-icons';
+import {  faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import Axios from "axios";
 
 const Pagos = () => {

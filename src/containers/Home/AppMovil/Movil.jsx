@@ -4,7 +4,7 @@ import { StyledContainer, StyledHome, StyledTitle } from './styles';
 import Menu from '../Menu/Menu';
 import Button from '../../../components/Button';
 import lector from '../../../Images/lector.png';
-import SistemaIntegralMovilAPK from '../../../APK/SistemaIntegralmovil.apk'; // Ruta al archivo APK
+import SistemaIntegralMovilAPK from '../../../APK/SistemaIntegralmovil.apk'; 
 
 const Movil = () => {
   const handleDownload = () => {
