@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import Axios from "axios";
 import Title from '../../../components/Title';
 import { StyledHome, StyledTitle, Styledtarifa, StyledModal, StyledTableWrapper } from './styles';
 import Menu from '../Menu/Menu';
@@ -10,16 +11,16 @@ const Empresa = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [nuevaTarifa, setNuevaTarifa] = useState({});
 
-  useEffect(() => {
-    const storedTarifas = JSON.parse(localStorage.getItem('tarifas'));
-    if (storedTarifas) {
-      setTarifas(storedTarifas);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const storedTarifas = JSON.parse(localStorage.getItem('tarifas'));
+  //   if (storedTarifas) {
+  //     setTarifas(storedTarifas);
+  //   }
+  // }, []);
 
-  useEffect(() => {
-    localStorage.setItem('tarifas', JSON.stringify(tarifas));
-  }, [tarifas]);
+  // useEffect(() => {
+  //   localStorage.setItem('tarifas', JSON.stringify(tarifas));
+  // }, [tarifas]);
 
   const abrirModal = () => {
     setModalVisible(true);
@@ -39,9 +40,35 @@ const Empresa = () => {
   };
 
   const agregarTarifa = () => {
-    setTarifas((prevTarifas) => [...prevTarifas, nuevaTarifa]);
+    //setTarifas((prevTarifas) => [...prevTarifas, nuevaTarifa]);
+    Axios.post('http://localhost:3001/registrarTarifa', {
+      nuevaTarifa: nuevaTarifa,
+    })
+    .then(function (response) {
+      console.log(response);
+      alert('Se agrego la tarifa');
+    })
+    .catch(function (error) {
+      console.log(error);
+      alert('No se pudo registrar la tarifa');
+    });
+    listarTarifa();
     cerrarModal();
   };
+
+  const listarTarifa = () => {
+    Axios.get('http://localhost:3001/listarTarifa')
+    .then(function (response) {
+      setTarifas(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
+  useEffect(() => {
+    listarTarifa();
+  }, []);
 
   return (
     <StyledHome>
@@ -63,9 +90,9 @@ const Empresa = () => {
             <tbody>
               {tarifas.map((tarifa, index) => (
                 <tr key={index}>
-                  <td>{tarifa.nombre}</td>
-                  <td>{tarifa.precio}</td>
-                  <td>{tarifa.basura}</td>
+                  <td>{tarifa.nombreTianguis}</td>
+                  <td>{tarifa.costoMetros}</td>
+                  <td>{tarifa.tarifaBasura}</td>
                 </tr>
               ))}
             </tbody>
