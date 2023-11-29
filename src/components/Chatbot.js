@@ -75,7 +75,7 @@ const Chatbot = () => {
       case 'Inicio':
         return "En la sección de 'Inicio' podrás observar un chatbot que te explicará cómo funciona todo el proyecto.";
       case 'Tarifas de tianguis':
-        return "En la sección de 'Empresa' encontrarás todas las tarifas, donde podrás editarlas y vincularlas con la tabla de comerciantes.";
+        return "En la sección de 'Tarifas' encontrarás todas las tarifas, donde podrás editarlas y vincularlas con la tabla de comerciantes.";
       case ' Registro de comerciantes':
         return "En la sección de 'Registro de comerciantes' encontrarás el listado de y los datos de los  comerciantes.";
         case ' Pagos de comerciantes':

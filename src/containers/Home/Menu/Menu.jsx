@@ -34,7 +34,7 @@ const menuDefault = [
     icon: faHandHoldingDollar,
   },
   {
-    displayName: 'Aplicacion movil',
+    displayName: 'Aplicación móvil',
     path: '/movil',
     icon: faShapes,
   },
