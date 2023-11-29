@@ -1,4 +1,4 @@
-// Pagos.js
+
 import React, { useState, useEffect } from 'react';
 import Title from '../../../components/Title';
 import Button from '../../../components/Button';
