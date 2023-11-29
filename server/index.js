@@ -137,10 +137,9 @@ app.post('/subirimagen', uploading.single('file'), (req, res) =>{
         res.status(400).send('Ingrese una imagen');
     }
     else{
-        // res.status(200).send(req.file.filename);
         if (req.file.mimetype.indexOf('image/jpeg') >= 0 || req.file.mimetype.indexOf('image/png') >= 0) {
             const { folio, nombre, tianguis, fecha } = JSON.parse(req.body.folioComerciante);
-            let monto = 100.00;
+            const monto = JSON.parse(req.body.monto);
             let codigoqr = req.file.filename;
             db.execute(
                 `INSERT INTO comerciantespago (folio, nombre, tianguis, fecha, codigoqr, monto ) 
@@ -189,6 +188,62 @@ app.post('/mostrarImagen', (req, res) => {
     else{
         res.status(500).send('Error el enviar el codigo')
     }
+});
+
+app.post('/registrarTarifa', (req, res) => {
+    if(req.body.nuevaTarifa != undefined){
+        let id = 0;
+        db.execute(
+            "SELECT id FROM tarifatianguis ORDER BY id DESC LIMIT 1",
+            (err, result) => {
+                if(err){
+                    res.status(500).json({ message: "No se pudo conectar a la base de datos"})
+                }
+                else{
+                    if(result.length == 0){
+                        id = 1;
+                    }
+                    else{
+                        id = result[0].id + 1;
+                    }
+                    const { nombre, precio, basura } = req.body.nuevaTarifa;                
+                    db.execute(
+                        `INSERT INTO tarifatianguis (id, nombreTianguis, costoMetros, tarifaBasura ) 
+                        VALUES (?, ?, ?, ?)`,
+                        [id, nombre, precio, basura],
+                        (err, result) => {
+                            if (err) {
+                                res.status(500).json({ error: "Error de servidor al intentar registar la tarifa" });
+                            } else {
+                                if (result.affectedRows == 1) {
+                                    res.send(result);
+                                } else {
+                                    res.send(result).json({ message: "Error al registar el comerciante" });
+                                }
+                            }
+                        }
+                    );
+                }
+            }
+        );
+    }
+    else{
+        res.status(500).send('No se ha enviado los datos de la tarifa');
+    }    
+});
+
+app.get('/listarTarifa', (req, res) => {
+    db.execute(
+        "SELECT * FROM tarifatianguis",
+        (err, result) => {
+            if(err){
+                res.status(500).send(err);
+            }
+            else{
+                return res.status(200).send(result);
+            }
+        }
+    );
 });
 
 

@@ -23,6 +23,7 @@ const Pagos = () => {
   const [showButtonBuscar, setShowButtonBuscar] = useState(true);
   const [imagen, setImagen] = useState('');
   const [folioComerciante, setFolioComerciante] = useState({});
+  const [monto, setMonto] = useState('');
 
   const listarPagosComerciantes = () => {
     Axios.get('http://localhost:3001/listarPagosComerciante')
@@ -85,6 +86,10 @@ const Pagos = () => {
     }));
   };
 
+
+  const handleInputMonto = (event) =>{
+    setMonto(event.target.value);
+  }
   const cerrarModal = () => {
     setModalVisible(false);
     setNuevoComerciante({});
@@ -102,6 +107,7 @@ const Pagos = () => {
     const formData = new FormData();
     formData.append('file', imagen);
     formData.append('folioComerciante', JSON.stringify(folioComerciante));
+    formData.append('monto', JSON.stringify(monto));
     Axios.post('http://localhost:3001/subirimagen', 
     formData, 
       {
@@ -110,7 +116,8 @@ const Pagos = () => {
         },
     })
     .then(function (response) {
-      console.log(response);    
+      alert('Se ha cargado el monto y el codigo QR exitosamente');
+      setModalVisible(false);   
     })
     .catch(function (error) {
       console.log(error);
@@ -205,6 +212,18 @@ const Pagos = () => {
                   type="text"
                   name="tianguis"
                   value={nuevoComerciante.tianguis}
+                  disabled 
+                />
+              </div>
+            )}
+            {showInputs && (
+              <div>
+                <label>Monto:</label>
+                <input
+                  type="text"
+                  name="monto"
+                  value={monto}
+                  onChange={handleInputMonto}
                 />
               </div>
             )}
@@ -230,7 +249,7 @@ const Pagos = () => {
             }
             { !showButtonBuscar &&
               (
-                <Button onClick={cargarIMG}>Cargar QR</Button>
+                <Button onClick={cargarIMG}>Cargar QR y monto</Button>
               )
             }            
             <Button onClick={cerrarModal}>Cancelar</Button>
