@@ -191,6 +191,9 @@ app.post('/mostrarImagen', (req, res) => {
 });
 
 app.post('/registrarTarifa', (req, res) => {
+
+    
+
     if(req.body.nuevaTarifa != undefined){
         let id = 0;
         db.execute(
@@ -206,6 +209,8 @@ app.post('/registrarTarifa', (req, res) => {
                     else{
                         id = result[0].id + 1;
                     }
+
+                    
                     const { nombre, precio, basura } = req.body.nuevaTarifa;                
                     db.execute(
                         `INSERT INTO tarifatianguis (id, nombreTianguis, costoMetros, tarifaBasura ) 

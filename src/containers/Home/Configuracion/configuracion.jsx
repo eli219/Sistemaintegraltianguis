@@ -9,6 +9,7 @@ const Configuracion = () => (
       <StyledTitle>
         <Title text="Configuracion" />
         <p>Para contactar cualquier error envie un mensaje a nuestro correo</p>
+        <p>soportesistemaintegral@gmail.com</p>
       </StyledTitle>
         
   </StyledHome>

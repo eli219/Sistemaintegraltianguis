@@ -1,4 +1,4 @@
-// Pagos.js
+
 import React, { useState, useEffect } from 'react';
 import Title from '../../../components/Title';
 import Button from '../../../components/Button';
@@ -18,7 +18,6 @@ import jsPDF from 'jspdf';
 
 const Pagos = () => {
   const [comerciantes, setComerciantes] = useState([]);
-
   const [historialVisible, setHistorialVisible] = useState(false);
   const [historialPagos, setHistorialPagos] = useState('');
   const [qrPago, setqrPago] = useState('');

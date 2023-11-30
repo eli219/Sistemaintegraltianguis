@@ -1,15 +1,25 @@
 
 import React, { useState, useEffect } from 'react';
-import Axios from "axios";
+import Axios from 'axios';
 import Title from '../../../components/Title';
-import { StyledHome, StyledTitle, Styledtarifa, StyledModal, StyledTableWrapper } from './styles';
+import {
+  StyledHome,
+  StyledTitle,
+  Styledtarifa,
+  StyledModal,
+  StyledTableWrapper,
+} from './styles';
 import Menu from '../Menu/Menu';
 import Button from '../../../components/Button';
 
 const Empresa = () => {
   const [tarifas, setTarifas] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
-  const [nuevaTarifa, setNuevaTarifa] = useState({});
+  const [nuevaTarifa, setNuevaTarifa] = useState({
+    nombre: '', // Asegúrate de inicializar cada propiedad que uses en handleInputChange
+    precio: '',
+    basura: '',
+  });
 
   const abrirModal = () => {
     setModalVisible(true);
@@ -17,7 +27,11 @@ const Empresa = () => {
 
   const cerrarModal = () => {
     setModalVisible(false);
-    setNuevaTarifa({});
+    setNuevaTarifa({
+      nombre: '',
+      precio: '',
+      basura: '',
+    });
   };
 
   const handleInputChange = (event) => {
@@ -28,31 +42,49 @@ const Empresa = () => {
     }));
   };
 
-  const agregarTarifa = () => {
-    Axios.post('http://localhost:3001/registrarTarifa', {
-      nuevaTarifa: nuevaTarifa,
-    })
-    .then(function (response) {
-      console.log(response);
-      alert('Se agrego la tarifa');
-    })
-    .catch(function (error) {
-      console.log(error);
-      alert('No se pudo registrar la tarifa');
-    });
-    listarTarifa();
-    cerrarModal();
-  };
+ /*  const agregarTarifa = () => {
+    Axios.post('http://localhost:3001/registrarTarifa', nuevaTarifa)
+      .then(function (response) {
+        console.log(response);
+        alert('Se agregó la tarifa');
+        cerrarModal();
+        listarTarifa(); // Mover esta línea dentro de la promesa para asegurar que se ejecute después de la solicitud exitosa
+      })
+      .catch(function (error) {
+        console.log(error);
+        alert('No se pudo registrar la tarifa');
+      });
+  }; */
 
+  //JG
+  const agregarTarifa = () => {
+    Axios.post('http://localhost:3001/registrarTarifa', nuevaTarifa)
+    .then(handleSuccess)
+    .catch(handleError);
+  }
+  
+  const handleSuccess = (response) => {
+    console.log(response);
+    alert('Se agregó la tarifa');
+    cerrarModal();
+    listarTarifa(); 
+  }
+
+  const handleError = (error) => {    
+    console.log(error);
+    alert('No se pudo registrar la tarifa');
+  }
+
+  //END
   const listarTarifa = () => {
     Axios.get('http://localhost:3001/listarTarifa')
-    .then(function (response) {
-      setTarifas(response.data);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  }
+      .then(function (response) {
+        setTarifas(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
   useEffect(() => {
     listarTarifa();
@@ -87,13 +119,13 @@ const Empresa = () => {
           </table>
         </StyledTableWrapper>
         {modalVisible && (
-          <StyledModal className='modal'>
+          <StyledModal className="modal">
             <div>
               <label>Nombre del tianguis:</label>
               <input
                 type="text"
                 name="nombre"
-                value={nuevaTarifa.nombre || ''}
+                value={nuevaTarifa.nombre}
                 onChange={handleInputChange}
               />
             </div>
@@ -102,7 +134,7 @@ const Empresa = () => {
               <input
                 type="number"
                 name="precio"
-                value={nuevaTarifa.precio || ''}
+                value={nuevaTarifa.precio}
                 onChange={handleInputChange}
               />
             </div>
@@ -111,7 +143,7 @@ const Empresa = () => {
               <input
                 type="number"
                 name="basura"
-                value={nuevaTarifa.basura || ''}
+                value={nuevaTarifa.basura}
                 onChange={handleInputChange}
               />
             </div>
