@@ -123,9 +123,50 @@ const StyledModal = styled.div`
   }
 `;
 
+const StyledModalTarjetaQR = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+  overflow: hidden;
+  width:550px;
+  height: 330px;
+
+  .subtitle {
+    margin: 0;
+    background-color:#ddd;
+    font-size: 24px;
+    font-weight: bold;
+    text-align:center;
+  }
+  .close{
+    float: right;
+    margin-top:-25px;
+    cursor: pointer;
+    color:red;
+    height:30px;
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+  .modal-content {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+`;
+
 const ImgCodigoQR = styled.img`
 width: 400px;
 height: 400px;
+`;
+
+const ImgCodigoQRTarjeta = styled.img`
+width: 300px;
+height: 300px;
 `;
 
 const StyledModalPago = styled.div`
@@ -163,6 +204,26 @@ subtitle {
 const Spinner = styled.div`
 
 `;
+
+const ModalTarjeta = styled.label`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+`;
+
+const DivTxtTarjeta = styled.div`
+  width: 40%;
+`;
+const LabelNombre = styled.label`
+  font-size: 1.5em;
+  margin-left: 20px;
+`;
+
+const LabelNombreTianguis = styled.label`
+  font-size: 0%.9;
+  color: gray;
+  margin-left: 20px;
+`;
 const StyledTableContent = styled.div`
   max-height: 300px;
   overflow-y: auto;
@@ -196,4 +257,9 @@ const SpinnerWrapper = styled.div`
   animation: ${rotate} 1s linear infinite;
 `;
 
-export { StyledHome, StyledTitle, StyledModal, ImgCodigoQR, StyledModalPago, Styledtarifa, StyledTableWrapper, StyledTableContent, StyledOverlay, SpinnerWrapper };
+export { StyledHome, StyledTitle, StyledModal, 
+  ImgCodigoQR, StyledModalPago, Styledtarifa, StyledTableWrapper, 
+  StyledTableContent, StyledOverlay, SpinnerWrapper, LabelNombre, 
+  LabelNombreTianguis, StyledModalTarjetaQR, ImgCodigoQRTarjeta,
+  ModalTarjeta, DivTxtTarjeta
+ };

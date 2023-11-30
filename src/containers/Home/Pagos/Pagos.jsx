@@ -1,13 +1,20 @@
-
+// Pagos.js
 import React, { useState, useEffect } from 'react';
 import Title from '../../../components/Title';
 import Button from '../../../components/Button';
 import Menu from '../Menu/Menu';
 import { StyledHome, StyledTitle, StyledModal, StyledModalPago, 
-  StyledTableWrapper, Styledtarifa, SpinnerWrapper, ImgCodigoQR } from './styles';
+  StyledTableWrapper, Styledtarifa, SpinnerWrapper, 
+  ImgCodigoQR, LabelNombre, LabelNombreTianguis, 
+  StyledModalTarjetaQR, ImgCodigoQRTarjeta,
+  ModalTarjeta, DivTxtTarjeta
+ } from './styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {  faWindowClose } from '@fortawesome/free-solid-svg-icons';
+import { faClose, faClosedCaptioning, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import Axios from "axios";
+import QRious from 'qrious';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 const Pagos = () => {
   const [comerciantes, setComerciantes] = useState([]);
@@ -24,6 +31,9 @@ const Pagos = () => {
   const [imagen, setImagen] = useState('');
   const [folioComerciante, setFolioComerciante] = useState({});
   const [monto, setMonto] = useState('');
+  const [tarjetaQr, setTarjetaQr] = useState(false);
+  const [nombreComerciante, setNombreComerciante] = useState('');
+  const [nombreTianguis, setNombreTianguis] = useState('');
 
   const listarPagosComerciantes = () => {
     Axios.get('http://localhost:3001/listarPagosComerciante')
@@ -77,6 +87,9 @@ const Pagos = () => {
     setHistorialPagos('');
     setHistorialVisible(false);
   };
+  const cerrarTarjetaQR = () => {
+    setTarjetaQr(false);
+  }
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -149,6 +162,102 @@ const Pagos = () => {
     setshowSpinner(false);
   }
 
+  const generarPDF = (comerciante) => {
+    setNombreComerciante(comerciante.nombre);
+    setNombreTianguis(comerciante.tianguis);
+    Axios.post('http://localhost:3001/mostrarImagen', {
+        codigoqr: comerciante.codigoqr,
+      },
+      {
+        responseType: "arraybuffer"
+      }
+      )
+      .then(function (response) {
+        const base64 = btoa(
+          new Uint8Array(response.data).reduce(
+            (data, byte) => data + String.fromCharCode(byte),
+            ''
+          )
+        )
+        const url = `data:image/png;base64,${base64}`;
+        setqrPago(url);
+        setTarjetaQr(true);
+        setTimeout(() => {
+          let elementToCapture = document.getElementById('modalTarjeta');
+          html2canvas(elementToCapture).then(function(canvas) {
+            let pdf = new jsPDF();
+
+            let imgData = canvas.toDataURL('image/png');
+            pdf.addImage(imgData, 'PNG', 10, 10, 100, 50);
+            pdf.save('documento.pdf'); 
+            setTarjetaQr(false);
+          });
+        }, 500);
+        
+      })
+      .catch(function (error) {
+        alert(`Ocurrio un error al mostrar la imagen: ${error}`)
+    });
+
+    
+    // const yPos = 1 * 90 + 10;
+
+    // const canvas = document.createElement('canvas');
+    // canvas.width = 350;
+    // canvas.height = 150;
+
+    // const ctx = canvas.getContext('2d');
+    // ctx.fillStyle = '#f9f2f7';
+    // ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // const qrCodeString = JSON.stringify(comerciante);
+
+    // ctx.font = 'bold 16px Arial';
+    // ctx.fillStyle = '#8c52ff';
+    // ctx.fillText('Sistema Integral de Tianguis', 10, 30);
+
+    // ctx.font = '14px Arial';
+    // ctx.fillStyle = '#8c52ff';
+    // ctx.fillText(` ${comerciante.nombre}`, 10, 60);
+    // ctx.fillText(` ${comerciante.folio}`, 10, 80);
+
+    // // Dibujar círculos
+    // ctx.beginPath();
+    // ctx.arc(20, 110, 10, 0, Math.PI * 2);
+    // ctx.fillStyle = '#aa8ed6';
+    // ctx.fill();
+
+    // ctx.beginPath();
+    // ctx.arc(40, 110, 10, 0, Math.PI * 2);
+    // ctx.fillStyle = '#5e17eb';
+    // ctx.fill();
+
+    // ctx.beginPath();
+    // ctx.arc(60, 110, 10, 0, Math.PI * 2);
+    // ctx.fillStyle = '#ff66c4';
+    // ctx.fill();
+
+    // // Generar código QR con qrious
+    // const qr = new QRious({
+    //   value: qrCodeString,
+    //   size: 50, // Tamaño del código QR
+    // });
+
+    // const qrImg = new Image();
+    // qrImg.src = qr.toDataURL('image/png');
+
+    // qrImg.onload = function () {
+    //   ctx.drawImage(qrImg, 200, 40, 110, 100);
+
+    //   const imgData = canvas.toDataURL('image/png');
+    //   const pdf = new jsPDF();
+    //   pdf.addImage(imgData, 'PNG', 10, yPos + 10, 90, 60);
+
+    //   pdf.save('comerciante.pdf');
+    // };
+
+  };
+
   return (
     <StyledHome>
       <Menu />
@@ -165,6 +274,7 @@ const Pagos = () => {
               <th>Nombre Tianguis</th>
               <th>Fecha</th>
               <th>Ver codigo QR</th>
+              <th>Generar Tarjeta QR</th>
             </tr>
           </thead>
           <tbody id="comerciantesTable">
@@ -174,7 +284,10 @@ const Pagos = () => {
                 <td>{comerciante.tianguis}</td>
                 <td>{comerciante.fecha}</td>
                 <td>
-                  <Button onClick={() => mostrarCodigoQR(comerciante.codigoqr)}>Ver codigo QR</Button>
+                  <Button onClick={() => mostrarCodigoQR(comerciante.codigoqr,)}>Ver codigo QR</Button>
+                </td>
+                <td>
+                  <Button onClick={() => generarPDF(comerciante)}>Generar tarjeta</Button>
                 </td>
               </tr>
             ))}
@@ -188,7 +301,20 @@ const Pagos = () => {
           <ImgCodigoQR src={qrPago} alt='Codigo QR para hacer el pago' ></ImgCodigoQR>
         </StyledModal>
       )}
-
+      {tarjetaQr && (
+        <StyledModalTarjetaQR className="modal" >
+          <div className="subtitle">Codigo QR</div>
+          <FontAwesomeIcon icon={faWindowClose} className='close' onClick={cerrarTarjetaQR}></FontAwesomeIcon>
+          <ModalTarjeta id='modalTarjeta'>
+            <DivTxtTarjeta>
+            <LabelNombre>{nombreComerciante}</LabelNombre><br></br>
+            <LabelNombreTianguis>{nombreTianguis}</LabelNombreTianguis>
+            </DivTxtTarjeta>
+            <ImgCodigoQRTarjeta src={qrPago} alt='Codigo QR para hacer el pago' ></ImgCodigoQRTarjeta>            
+          </ModalTarjeta>
+        </StyledModalTarjetaQR>
+        )}
+        
       {/*
         Modal agregar pago        
       */}
@@ -262,3 +388,4 @@ const Pagos = () => {
 };
 
 export default Pagos;
+
