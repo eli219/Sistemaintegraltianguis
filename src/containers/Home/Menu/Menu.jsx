@@ -1,16 +1,8 @@
-
 import React from 'react';
-import { StyledMenu, StyledUl, StyledLi } from './styles'; 
-import MenuItem from '../../../components/MenuItem'; 
-import {
-  faHome,
-  faHandHoldingDollar,
-  faShapes,
-  faCogs,
-  faAddressCard,
-  faCoins,
-} from '@fortawesome/free-solid-svg-icons';
-import logo from '../../../Images/logo.png'; 
+import { Box, Image, Stack } from '@chakra-ui/react';
+import { faHome, faHandHoldingDollar, faShapes, faCogs, faAddressCard, faCoins } from '@fortawesome/free-solid-svg-icons';
+import MenuItem from '../../../components/MenuItem';
+import logo from '../../../Images/logo.png';
 
 const menuDefault = [
   {
@@ -46,20 +38,21 @@ const menuDefault = [
 ];
 
 const Menu = () => (
-  <StyledMenu>
-    <StyledUl>
-      <img src={logo} className='logo' alt='logo' />
-      {menuDefault.map((item, index) => (
-        <StyledLi key={index}>
-          <MenuItem
-            displayName={item.displayName}
-            path={item.path}
-            icon={item.icon}
-          />
-        </StyledLi>
-      ))}
-    </StyledUl>
-  </StyledMenu>
+<Box bg="linear-gradient(90deg, rgba(210,186,219,1) 0%, rgba(172,136,181,1) 35%, rgba(147,172,203,1) 100%)" // Cambia el fondo aquí
+ w={{ base: '100%', md: '250px' }} minH="60vh" p={4}>
+  <Stack spacing={6}>
+    <Image src={logo} className='logo' alt='logo' maxWidth="60px" maxHeight="60px" /> {/* Ajusta maxHeight a tu preferencia */}
+    {menuDefault.map((item, index) => (
+      <MenuItem
+        key={index}
+        displayName={item.displayName}
+        path={item.path}
+        icon={item.icon}
+      />
+    ))}
+  </Stack>
+</Box>
+
 );
 
 export default Menu;

@@ -14,4 +14,32 @@ const StyledTitle = styled.div`
   margin-left:320px;
   }
 `;
-export { StyledHome,StyledTitle };
+
+const StyledTableWrapper = styled.div`
+  overflow-x: auto;
+  font-family: 'Arial', sans-serif;
+  font-size: 18px;
+  max-width: 100%;
+  margin: 20px auto;
+
+  table {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    background-color: #fff;
+    color: #000;
+  }
+
+  th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #eee;
+  }
+`;
+
+export { StyledHome,StyledTitle, StyledTableWrapper };

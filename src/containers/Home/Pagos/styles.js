@@ -3,54 +3,57 @@ import styled, { keyframes } from 'styled-components';
 
 const StyledHome = styled.div`
   display: flex;
-  height: 950px;
   padding: 20px;
   box-sizing: border-box;
   flex-direction: column;
   background: white;
-  font-family: 'Arial', sans-serif;
+  height: auto; /* Altura automática */
+  min-height: 100vh; /* Altura mínima del 100% del viewport */
 `;
 
 const StyledTitle = styled.div`
-  margin-top: -950px;
-  margin-left: 320px;
-  font-size: 20px;
+  margin-top: 20px; /* Cambio el margen para un espacio más adecuado */
+  text-align: center; /* Centrar el texto */
 `;
-const Styledtarifa = styled.div`
-  margin-left:450px;
-  height:900px;
-  .modal {
-    background-color:white;
-  }
-`
 
+const Styledtarifa = styled.div`
+  margin-left: auto; /* Mover el elemento hacia la derecha */
+  margin-right: auto; /* Mover el elemento hacia la izquierda */
+  width: 100%; /* Ancho completo */
+  max-width: 800px; /* Ancho máximo */
+  height: auto; /* Altura automática */
+`;
 const StyledTableWrapper = styled.div`
   overflow-x: auto;
   font-family: 'Arial', sans-serif;
   font-size: 18px;
   max-width: 100%;
-  margin: 20px auto;
+  margin-top: 20px;
 
   table {
     width: 100%;
-    max-width: 100%;
-    margin: 0 auto;
     border-collapse: collapse;
-    background-color: #f4f4f4;
-    color: #333;
-    border-radius: 8px; /* Bordes redondeados para un aspecto más suave */
-    overflow: hidden; /* Oculta el desbordamiento del contenido */
-  }
+    border-spacing: 0;
+    background-color: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 
-  th, td {
-    border: 1px solid #ddd;
-    padding: 12px;
-    text-align: left;
-  }
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+    }
 
-  th {
-    background-color: #e0e0e0;
-    font-weight: bold;
+    th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    tr:hover {
+      background-color: #ddd;
+    }
   }
 `;
 
@@ -59,70 +62,28 @@ const StyledModal = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
-  z-index: 9999;
-  overflow: hidden;
-  width:400px;
-  height: 430px;
+  background-color: #ffffff;
+  padding: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
 
-  .modal-header {
-    background-color:#ddd;
-    color: #fff;
-    padding: 16px;
-    text-align: center;
-    border-bottom: 1px solid #ddd;
-    border-radius: 12px 12px 0 0;
+  label {
+    display: block;
+    margin-bottom: 8px;
   }
 
-  .subtitle {
-    margin: 0;
-    background-color:#ddd;
-    font-size: 24px;
-    font-weight: bold;
-    text-align:center;
-  }
-  .close{
-    float: right;
-    margin-top:-20px;
-    cursor: pointer;
-    color:red;
-    height:30px;
-    &:hover {
-      opacity: 0.7;
-    }
-  }
-  .modal-content {
-    max-height: 400px;
-    overflow-y: auto;
-  }
-
-  table {
+  input {
     width: 100%;
-    max-width: 100%;
-    margin: 0 auto;
-    border-collapse: collapse;
-    background-color: #f9f9f9;
-    color: #333;
-    border-radius: 0 0 12px 12px;
-    overflow: auto; /* Agregado para habilitar el scroll en la tabla */
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
   }
 
-  th,
-  td {
-    border: 1px solid #ddd;
-    padding: 16px;
-    text-align: left;
-  }
-
-  th {
-    background-color: #e0e0e0;
-    font-weight: bold;
+  button {
+    margin-right: 8px;
   }
 `;
-
 const StyledModalTarjetaQR = styled.div`
   position: fixed;
   top: 50%;

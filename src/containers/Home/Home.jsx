@@ -1,27 +1,28 @@
-
-import React,{useEffect,useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Title from '../../components/Title';
-import { StyledHome, StyledTitle } from './styles';
+import { Box, Flex } from '@chakra-ui/react'; // Importa los componentes de Chakra UI que necesitas
 import Menu from './Menu/Menu';
 import Chatbot from '../../components/Chatbot';
 
 const Home = () => {
   const [chatOpen, setChatOpen] = useState(false);
+
   useEffect(() => {
     setChatOpen(true);
   }, []);
+
   return (
-    <div>
-      <StyledHome>
-        <Menu />
-        <StyledTitle>
-          <Title text="Inicio" />
-        </StyledTitle>
+    <Flex direction={{ base: 'column', md: 'row' }} minHeight="10vh">
+     
+      <Menu />
+
+     
+      <Box flex="1" p={{ base: 4, md: 7 }}>
+        <Title text="Inicio" />
         {chatOpen && <Chatbot />}
-      </StyledHome>
-    </div>
+      </Box>
+    </Flex>
   );
 };
 
-
-export default Home
+export default Home;

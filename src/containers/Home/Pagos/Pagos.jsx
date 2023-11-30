@@ -15,6 +15,7 @@ import Axios from "axios";
 import QRious from 'qrious';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import { Box, Flex } from '@chakra-ui/react';
 
 const Pagos = () => {
   const [comerciantes, setComerciantes] = useState([]);
@@ -258,12 +259,15 @@ const Pagos = () => {
   };
 
   return (
-    <StyledHome>
-      <Menu />
+    <Flex direction={{ base: 'column', md: 'row' }} minHeight="50vh">
+    {/* Menú */}
+    <Menu />
+     {/* Contenido principal */}
+     <Box flex="1" p={{ base: 4, md: 8 }}>
       <StyledTitle>
         <Title text="Pagos Comerciantes" />
-      </StyledTitle>
-      <Styledtarifa>
+      </StyledTitle> 
+ 
       <Button onClick={abrirModal}>Registrar Nuevo Pago</Button>
       <StyledTableWrapper>
         <table>
@@ -380,9 +384,8 @@ const Pagos = () => {
             <Button onClick={cerrarModal}>Cancelar</Button>
           </StyledModalPago>
         )}
-      </Styledtarifa> 
-      
-    </StyledHome>
+    </Box>
+    </Flex>
   );
 };
 

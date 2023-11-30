@@ -191,50 +191,42 @@ app.post('/mostrarImagen', (req, res) => {
 });
 
 app.post('/registrarTarifa', (req, res) => {
-
-    
-
-    if(req.body.nuevaTarifa != undefined){
-        let id = 0;
-        db.execute(
-            "SELECT id FROM tarifatianguis ORDER BY id DESC LIMIT 1",
-            (err, result) => {
-                if(err){
-                    res.status(500).json({ message: "No se pudo conectar a la base de datos"})
-                }
-                else{
-                    if(result.length == 0){
-                        id = 1;
-                    }
-                    else{
-                        id = result[0].id + 1;
-                    }
-
-                    
-                    const { nombre, precio, basura } = req.body.nuevaTarifa;                
-                    db.execute(
-                        `INSERT INTO tarifatianguis (id, nombreTianguis, costoMetros, tarifaBasura ) 
-                        VALUES (?, ?, ?, ?)`,
-                        [id, nombre, precio, basura],
-                        (err, result) => {
-                            if (err) {
-                                res.status(500).json({ error: "Error de servidor al intentar registar la tarifa" });
-                            } else {
-                                if (result.affectedRows == 1) {
-                                    res.send(result);
-                                } else {
-                                    res.send(result).json({ message: "Error al registar el comerciante" });
-                                }
-                            }
-                        }
-                    );
-                }
+    let id;
+  
+    db.execute(
+        "SELECT id FROM tarifatianguis ORDER BY id DESC LIMIT 1",
+        (err, result) => {
+            if (err) {
+                console.error("Error al intentar obtener el último ID:", err);
+                return res.status(500).json({ message: "Error al intentar obtener el último ID" });
             }
-        );
-    }
-    else{
-        res.status(500).send('No se ha enviado los datos de la tarifa');
-    }    
+
+            if (result.length === 0) {
+                id = 1;
+            } else {
+                id = result[0].id + 1;
+            }
+
+            const { nombre, precio, basura } = req.body.nuevaTarifa;
+            db.execute(
+                `INSERT INTO tarifatianguis (id, nombreTianguis, costoMetros, tarifaBasura) VALUES (?, ?, ?, ?)`,
+                [id, nombre, precio, basura],
+                (err, result) => {
+                    if (err) {
+                        console.error("Error al intentar registrar la tarifa:", err);
+                        return res.status(500).json({ error: "Error de servidor al intentar registrar la tarifa" });
+                    } else {
+                        if (result.affectedRows === 1) {
+                            return res.status(200).json({ message: "Tarifa registrada correctamente" });
+                        } else {
+                            return res.status(500).json({ message: "Error al registrar la tarifa" });
+                        }
+                    }
+                }
+            );
+        }
+    );
+  
 });
 
 app.get('/listarTarifa', (req, res) => {

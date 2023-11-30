@@ -11,7 +11,7 @@ const StyledMenu = styled.div`
   left: 20px;
   top: 20px;
   background: rgb(210,186,219);
-  background: linear-gradient(90deg, rgba(210,186,219,1) 0%, rgba(172,136,181,1) 35%, rgba(147,172,203,1) 100%);
+  background: linear-gradient(90deg, rgba(210,186,219,1) 0%, rgba(172,136,181,1) 35%, rgba(147,172,203,1) 100%);  
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
 `;

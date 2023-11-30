@@ -9,7 +9,7 @@ import QRCode from 'qrcode.react';
 import styled from 'styled-components';
 import QRious from 'qrious';
 import Axios from "axios";
-
+import { Box, Flex } from '@chakra-ui/react';
 
 const PrepaidCard = styled.div`
   background-color: #f9f2f7;
@@ -187,14 +187,16 @@ const Comerciantes = () => {
   }, []);
 
   return (
-    <StyledHome>
-      <Menu />
+    <Flex direction={{ base: 'column', md: 'row' }} minHeight="50vh">
+    {/* Menú */}
+    <Menu />
+     {/* Contenido principal */}
+     <Box flex="1" p={{ base: 4, md: 8 }}>
       <StyledTitle>
-        <Title text="Comerciante" />
-      </StyledTitle>
-      <Styledtarifa>
-        <Button onClick={abrirModal}>Registrar Comerciante</Button>
-        {/* <Button className='espacio' onClick={generarPDF}>Generar Tarjeta QR</Button> */}
+        <Title text="Comerciantes" />
+      </StyledTitle>      
+      <Button onClick={abrirModal}>Registrar Comerciante</Button>
+        
         <StyledTableWrapper>
           <table ref={tableRef}>
             <thead>
@@ -291,8 +293,8 @@ const Comerciantes = () => {
             <Button onClick={cerrarModal}>Cancelar</Button>
           </StyledModal>
         )}
-      </Styledtarifa>
-    </StyledHome>
+ </Box>
+    </Flex>
   );
 };
 

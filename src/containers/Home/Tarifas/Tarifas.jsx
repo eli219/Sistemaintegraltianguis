@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import Title from '../../../components/Title';
@@ -9,6 +8,7 @@ import {
   StyledModal,
   StyledTableWrapper,
 } from './styles';
+import { Box, Flex } from '@chakra-ui/react';
 import Menu from '../Menu/Menu';
 import Button from '../../../components/Button';
 
@@ -42,23 +42,8 @@ const Empresa = () => {
     }));
   };
 
- /*  const agregarTarifa = () => {
-    Axios.post('http://localhost:3001/registrarTarifa', nuevaTarifa)
-      .then(function (response) {
-        console.log(response);
-        alert('Se agregó la tarifa');
-        cerrarModal();
-        listarTarifa(); // Mover esta línea dentro de la promesa para asegurar que se ejecute después de la solicitud exitosa
-      })
-      .catch(function (error) {
-        console.log(error);
-        alert('No se pudo registrar la tarifa');
-      });
-  }; */
-
-  //JG
   const agregarTarifa = () => {
-    Axios.post('http://localhost:3001/registrarTarifa', nuevaTarifa)
+    Axios.post('http://localhost:3001/registrarTarifa', {nuevaTarifa:nuevaTarifa})
     .then(handleSuccess)
     .catch(handleError);
   }
@@ -74,8 +59,7 @@ const Empresa = () => {
     console.log(error);
     alert('No se pudo registrar la tarifa');
   }
-
-  //END
+ 
   const listarTarifa = () => {
     Axios.get('http://localhost:3001/listarTarifa')
       .then(function (response) {
@@ -91,13 +75,15 @@ const Empresa = () => {
   }, []);
 
   return (
-    <StyledHome>
-      <Menu />
+    <Flex direction={{ base: 'column', md: 'row' }} minHeight="50vh">
+    {/* Menú */}
+    <Menu />
+     {/* Contenido principal */}
+     <Box flex="1" p={{ base: 4, md: 8 }}>
       <StyledTitle>
         <Title text="Tarifas de tianguis" />
       </StyledTitle>
-      <Styledtarifa>
-        <Button onClick={abrirModal}>Agregar Tarifa</Button>
+      <Button onClick={abrirModal}>Agregar Tarifa</Button>
         <StyledTableWrapper>
           <table>
             <thead>
@@ -149,10 +135,9 @@ const Empresa = () => {
             </div>
             <Button onClick={agregarTarifa}>Agregar</Button>
             <Button onClick={cerrarModal}>Cancelar</Button>
-          </StyledModal>
-        )}
-      </Styledtarifa>
-    </StyledHome>
+          </StyledModal>    )}   
+      </Box>
+    </Flex>
   );
 };
 
