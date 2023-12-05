@@ -85,7 +85,7 @@ const Comerciantes = () => {
       pagoRealizado: false,
       fechaPago: '',
     };
-    Axios.post('http://localhost:3001/registrarComerciante', {
+    Axios.post('https://sistemaintegraldetianguis.com/registrarComerciante', {
       nuevoComerciante: nuevoComercianteConPago,
     })
     .then(function (response) {
@@ -172,7 +172,7 @@ const Comerciantes = () => {
   };
 
   const listarComerciantes = () => {
-    Axios.get('http://localhost:3001/registrarComerciante')
+    Axios.get('https://sistemaintegraldetianguis.com/registrarComerciante')
     .then(function (response) {
       console.log(response.data);
       settablaComerciantes(response.data);

@@ -38,7 +38,7 @@ function App() {
       return;
     }
 
-    Axios.post("http://localhost:3001/login", {
+    Axios.post("https://sistemaintegraldetianguis.com/login", {
       email: email,
       password: password,
     }).then((response) => {
