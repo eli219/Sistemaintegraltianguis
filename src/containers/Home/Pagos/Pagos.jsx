@@ -36,7 +36,7 @@ const Pagos = () => {
   const [nombreTianguis, setNombreTianguis] = useState('');
 
   const listarPagosComerciantes = () => {
-    Axios.get('https://sistemaintegraldetianguis.com/listarPagosComerciante')
+    Axios.get('https://www.sistemaintegraldetianguis.com/listarPagosComerciante')
     .then(function (response) {
       setComerciantes(response.data);
     })
@@ -57,7 +57,7 @@ const Pagos = () => {
     if (codigoqr !== undefined && codigoqr !== null && codigoqr !== '') {
       setHistorialPagos(codigoqr);
       setHistorialVisible(true);
-      Axios.post('https://sistemaintegraldetianguis.com/mostrarImagen', {
+      Axios.post('https://www.sistemaintegraldetianguis.com/mostrarImagen', {
         codigoqr: codigoqr,
       },
       {
@@ -121,7 +121,7 @@ const Pagos = () => {
     formData.append('file', imagen);
     formData.append('folioComerciante', JSON.stringify(folioComerciante));
     formData.append('monto', JSON.stringify(monto));
-    Axios.post('https://sistemaintegraldetianguis.com/subirimagen', 
+    Axios.post('https://www.sistemaintegraldetianguis.com/subirimagen', 
     formData, 
       {
         headers: {
@@ -139,7 +139,7 @@ const Pagos = () => {
 
   const buscarComerciante = () => {
     setshowSpinner(true);
-    Axios.post('https://sistemaintegraldetianguis.com/buscarComerciante', {
+    Axios.post('https://www.sistemaintegraldetianguis.com/buscarComerciante', {
       nombre: nuevoComerciante.nombre,
     })
     .then(function (response) {
@@ -165,7 +165,7 @@ const Pagos = () => {
   const generarPDF = (comerciante) => {
     setNombreComerciante(comerciante.nombre);
     setNombreTianguis(comerciante.tianguis);
-    Axios.post('https://sistemaintegraldetianguis.com/mostrarImagen', {
+    Axios.post('https://www.sistemaintegraldetianguis.com/mostrarImagen', {
         codigoqr: comerciante.codigoqr,
       },
       {

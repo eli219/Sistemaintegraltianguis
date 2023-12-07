@@ -43,7 +43,7 @@ const Empresa = () => {
   };
 
   const agregarTarifa = () => {
-    Axios.post('https://sistemaintegraldetianguis.com/registrarTarifa', {nuevaTarifa:nuevaTarifa})
+    Axios.post('https://www.sistemaintegraldetianguis.com/registrarTarifa', {nuevaTarifa:nuevaTarifa})
     .then(handleSuccess)
     .catch(handleError);
   }
@@ -61,7 +61,7 @@ const Empresa = () => {
   }
  
   const listarTarifa = () => {
-    Axios.get('https://sistemaintegraldetianguis.com/listarTarifa')
+    Axios.get('https://www.sistemaintegraldetianguis.com/listarTarifa')
       .then(function (response) {
         setTarifas(response.data);
       })

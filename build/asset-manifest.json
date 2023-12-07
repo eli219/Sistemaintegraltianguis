@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.js": "/static/js/main.0743af8d.js",
+    "main.js": "/static/js/main.7bf58bcf.js",
     "static/js/703.7c3fe3f6.chunk.js": "/static/js/703.7c3fe3f6.chunk.js",
     "static/js/258.e9942879.chunk.js": "/static/js/258.e9942879.chunk.js",
     "static/media/SistemaIntegralmovil.apk": "/static/media/SistemaIntegralmovil.6cbdb989531d921c1ced.apk",
     "static/media/lector.png": "/static/media/lector.9193690b2d848a810dd5.png",
     "static/media/logo.png": "/static/media/logo.d5042e5460f37effcde8.png",
     "index.html": "/index.html",
-    "main.0743af8d.js.map": "/static/js/main.0743af8d.js.map",
+    "main.7bf58bcf.js.map": "/static/js/main.7bf58bcf.js.map",
     "703.7c3fe3f6.chunk.js.map": "/static/js/703.7c3fe3f6.chunk.js.map",
     "258.e9942879.chunk.js.map": "/static/js/258.e9942879.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.0743af8d.js"
+    "static/js/main.7bf58bcf.js"
   ]
 }

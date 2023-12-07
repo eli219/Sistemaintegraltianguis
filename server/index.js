@@ -12,9 +12,9 @@ const multer = require('multer');
 // Configuración de la conexión a la base de datos
 const db = mysql.createConnection({
     host: "localhost",
-    user: "sistemgral9933_sistemgral9933",
-    password: "v~hkj=g1@%*4",
-    database: "sistemgral9933_sistemagral"
+    user: "sistemgral9933_root",
+    password: "Holamundo2024",
+    database: "sistemgral9933_production"
 });
 
 // Conexión a la base de datos
@@ -29,7 +29,7 @@ db.connect((err) => {
 app.use(express.json());
 app.use(
     cors({
-        origin: ["https://sistemaintegraldetianguis.com"],
+        origin: ["https://www.sistemaintegraldetianguis.com"],        
         methods: ["GET", "POST"],
         credentials: true,
     })
@@ -244,6 +244,6 @@ app.get('/listarTarifa', (req, res) => {
 });
 
 
-// app.listen(3001, () => {
-//     console.log("Servidor en funcionamiento en el puerto 3001");
-// });
+/* app.listen(3001, () => {
+    console.log("Servidor en funcionamiento en el puerto 3001");
+}); */
