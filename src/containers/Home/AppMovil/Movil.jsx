@@ -1,6 +1,6 @@
 import React from 'react';
 import Title from '../../../components/Title';
-import { StyledTableWrapper, StyledContainer, StyledHome, StyledTitle } from './styles';
+import { StyledTableWrapper, StyledTitle } from './styles';
 import Menu from '../Menu/Menu';
 import Button from '../../../components/Button';
 import lector from '../../../Images/lector.png';

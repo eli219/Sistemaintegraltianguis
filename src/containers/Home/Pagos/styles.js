@@ -161,11 +161,7 @@ subtitle {
   color:linear-gradient(63.29deg, #EBC0E1 0.45%, #272244 100%);
 }
 `;
-
-const Spinner = styled.div`
-
-`;
-
+ 
 const ModalTarjeta = styled.label`
   width: 100%;
   display: flex;

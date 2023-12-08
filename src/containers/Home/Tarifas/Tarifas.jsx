@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import Axios from 'axios';
+import axios from 'axios';
 import Title from '../../../components/Title';
-import {
-  StyledHome,
-  StyledTitle,
-  Styledtarifa,
+import {  
+  StyledTitle,  
   StyledModal,
   StyledTableWrapper,
 } from './styles';
 import { Box, Flex } from '@chakra-ui/react';
 import Menu from '../Menu/Menu';
 import Button from '../../../components/Button';
-
+const axiosInstance = axios.create({
+  baseURL: '/' // Aquí estableces la URL base
+});
 const Empresa = () => {
   const [tarifas, setTarifas] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
@@ -43,7 +43,7 @@ const Empresa = () => {
   };
 
   const agregarTarifa = () => {
-    Axios.post('https://www.sistemaintegraldetianguis.com/registrarTarifa', {nuevaTarifa:nuevaTarifa})
+    axiosInstance.post('/registrarTarifa', {nuevaTarifa:nuevaTarifa})
     .then(handleSuccess)
     .catch(handleError);
   }
@@ -61,7 +61,7 @@ const Empresa = () => {
   }
  
   const listarTarifa = () => {
-    Axios.get('https://www.sistemaintegraldetianguis.com/listarTarifa')
+    axiosInstance.get('/listarTarifa')
       .then(function (response) {
         setTarifas(response.data);
       })

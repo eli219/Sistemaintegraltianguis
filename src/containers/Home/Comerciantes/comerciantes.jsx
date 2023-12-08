@@ -1,7 +1,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import Title from '../../../components/Title';
-import { StyledHome, StyledTitle, Styledtarifa, StyledModal, StyledTableWrapper } from './styles';
+import { StyledTitle, StyledModal, StyledTableWrapper } from './styles';
 import Button from '../../../components/Button';
 import Menu from '../Menu/Menu';
 import jsPDF from 'jspdf';
@@ -9,52 +9,14 @@ import QRCode from 'qrcode.react';
 import styled from 'styled-components';
 import QRious from 'qrious';
 import Axios from "axios";
-import { Box, Flex } from '@chakra-ui/react';
-
-const PrepaidCard = styled.div`
-  background-color: #f9f2f7;
-  border: 2px solid #6b5b95;
-  border-radius: 10px;
-  padding: 20px;
-  margin: 10px;
-  height: 150px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  color: black;
-  font-family: Arial, sans-serif;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  width: 300px;
-`;
-
-const PrepaidCardContent = styled.div`
-  flex-grow: 1;
-  text-align: left;
-`;
-
-const PrepaidCardQR = styled(QRCode)`
-  margin-left: 20px;
-  color: black;
-`;
-
-const CardTitle = styled.h3`
-  font-size: 1.5rem;
-  margin-bottom: 10px;
-  color: black;
-`;
-
-const CardContent = styled.div`
-  font-size: 1rem;
-  line-height: 1.5;
-  color: black;
-`;
+import { Box, Flex } from '@chakra-ui/react'; 
 
 const Comerciantes = () => {
   const [comerciantes, setComerciantes] = useState([]);
   const [tablaComerciantes, settablaComerciantes] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [nuevaComerciante, setNuevoComerciante] = useState({});
-  const [codigoQR, setCodigoQR] = useState('');
+  const [setCodigoQR] = useState('');
   const tableRef = useRef(null);
 
   const abrirModal = () => {
@@ -98,78 +60,7 @@ const Comerciantes = () => {
     setCodigoQR(JSON.stringify(nuevoComercianteConPago));
     listarComerciantes();
     cerrarModal();
-  };
-
-  const generarPDF = () => {
-    comerciantes.forEach((comerciante, index) => {
-      const yPos = index * 90 + 10;
-      const idUnico = generarIDUnico();
-
-      const canvas = document.createElement('canvas');
-      canvas.width = 350;
-      canvas.height = 150;
-
-      const ctx = canvas.getContext('2d');
-      ctx.fillStyle = '#f9f2f7';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      const qrCodeString = JSON.stringify(comerciante);
-
-      ctx.font = 'bold 16px Arial';
-      ctx.fillStyle = '#8c52ff';
-      ctx.fillText('Sistema Integral de Tianguis', 10, 30);
-
-      ctx.font = '14px Arial';
-      ctx.fillStyle = '#8c52ff';
-      ctx.fillText(` ${comerciante.nombre}`, 10, 60);
-      ctx.fillText(` ${idUnico}`, 10, 80);
-
-      // Dibujar círculos
-      ctx.beginPath();
-      ctx.arc(20, 110, 10, 0, Math.PI * 2);
-      ctx.fillStyle = '#aa8ed6';
-      ctx.fill();
-
-      ctx.beginPath();
-      ctx.arc(40, 110, 10, 0, Math.PI * 2);
-      ctx.fillStyle = '#5e17eb';
-      ctx.fill();
-
-      ctx.beginPath();
-      ctx.arc(60, 110, 10, 0, Math.PI * 2);
-      ctx.fillStyle = '#ff66c4';
-      ctx.fill();
-
-      // Generar código QR con qrious
-      const qr = new QRious({
-        value: qrCodeString,
-        size: 50, // Tamaño del código QR
-      });
-
-      const qrImg = new Image();
-      qrImg.src = qr.toDataURL('image/png');
-
-      qrImg.onload = function () {
-        ctx.drawImage(qrImg, 200, 40, 110, 100);
-
-        const imgData = canvas.toDataURL('image/png');
-        const pdf = new jsPDF();
-        pdf.addImage(imgData, 'PNG', 10, yPos + 10, 90, 60);
-
-        if (index !== comerciantes.length - 1) {
-          pdf.addPage();
-        }
-
-        if (index === comerciantes.length - 1) {
-          pdf.save('comerciantes.pdf');
-        }
-      };
-    });
-  };
-
-  const generarIDUnico = () => {
-    return Math.floor(Math.random() * 1000000);
-  };
+  };  
 
   const listarComerciantes = () => {
     Axios.get('https://www.sistemaintegraldetianguis.com/registrarComerciante')

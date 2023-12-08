@@ -1,6 +1,6 @@
 import React from 'react';
 import Title from '../../../components/Title';
-import { StyledTableWrapper, StyledHome,StyledTitle } from './styles';
+import { StyledTableWrapper, StyledTitle } from './styles';
 import Menu from '../Menu/Menu';
 import { Box, Flex } from '@chakra-ui/react';
 

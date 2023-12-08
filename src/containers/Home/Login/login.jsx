@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import Axios from "axios";
+import axios from "axios";
 import { StyledHome, StyledLogin, StyledTitle, StyledInput, StyledButton } from './styles';
 import Button from '../../../components/Button';
 import logo from '../../../Images/logo.png'
 import TitleLogin from "../../../components/TitleLogin";
 import Input from '../../../components/Input';
-import { useNavigate } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom"; 
 function App() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState('');
@@ -38,7 +37,7 @@ function App() {
       return;
     }
 
-    Axios.post("https://www.sistemaintegraldetianguis.com/login", {
+  axios.post("/login", {
       email: email,
       password: password,
     }).then((response) => {
@@ -64,7 +63,7 @@ function App() {
     <div className="App">
       <StyledHome>
         <StyledLogin>
-          <img src={logo} className='logo'/>
+          <img src={logo} className='logo' alt="Logo"/>
           <StyledTitle>
             <TitleLogin className='Title' text="Iniciar Sesión" />
           </StyledTitle>

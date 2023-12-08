@@ -3,16 +3,15 @@ import React, { useState, useEffect } from 'react';
 import Title from '../../../components/Title';
 import Button from '../../../components/Button';
 import Menu from '../Menu/Menu';
-import { StyledHome, StyledTitle, StyledModal, StyledModalPago, 
-  StyledTableWrapper, Styledtarifa, SpinnerWrapper, 
+import { StyledTitle, StyledModal, StyledModalPago, 
+  StyledTableWrapper, SpinnerWrapper, 
   ImgCodigoQR, LabelNombre, LabelNombreTianguis, 
   StyledModalTarjetaQR, ImgCodigoQRTarjeta,
   ModalTarjeta, DivTxtTarjeta
  } from './styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClose, faClosedCaptioning, faWindowClose } from '@fortawesome/free-solid-svg-icons';
+import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import Axios from "axios";
-import QRious from 'qrious';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { Box, Flex } from '@chakra-ui/react';
@@ -20,10 +19,10 @@ import { Box, Flex } from '@chakra-ui/react';
 const Pagos = () => {
   const [comerciantes, setComerciantes] = useState([]);
   const [historialVisible, setHistorialVisible] = useState(false);
-  const [historialPagos, setHistorialPagos] = useState('');
+  const [setHistorialPagos] = useState('');
   const [qrPago, setqrPago] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
-  const [selectedComercianteIndex, setSelectedComercianteIndex] = useState(null);
+  const [setSelectedComercianteIndex] = useState(null);
   const [nuevoComerciante, setNuevoComerciante] = useState({});
   const [showSpinner, setshowSpinner] = useState(false);
   const [showInputs, setShowInputs] = useState(false);

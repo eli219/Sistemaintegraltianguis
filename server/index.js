@@ -11,11 +11,14 @@ const multer = require('multer');
 
 // Configuración de la conexión a la base de datos
 const db = mysql.createConnection({
-    host: "localhost",
-    user: "sistemgral9933_root",
-    password: "Holamundo2024",
-    database: "sistemgral9933_production"
-});
+    host: 'aws.connect.psdb.cloud',
+    user: '20vqxlk0ojhho6xijhen',
+    password: 'pscale_pw_Y6Vgy37jHBtY7HcyQNeDhcoyOfbVw6GAweoxxmWBR0L',
+    database: 'tiaguis',
+    ssl: {
+        ca: fs.readFileSync('../singlestore_bundle.pem')
+    }
+}); 
 
 // Conexión a la base de datos
 db.connect((err) => {
